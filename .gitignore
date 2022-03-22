@@ -153,3 +153,4 @@ cython_debug/
 migrations/
 do_it_django_prj
 *.py
+_media/
