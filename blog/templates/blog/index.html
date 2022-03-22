@@ -13,7 +13,7 @@
 
     {% for p in posts %}
     <hr />
-    <h2>{{ p.title }}</h2>
+    <h2><a href="{{ p.get_absoulute_url }}">{{ p.title }}</h2>
     <h4>{{ p.created_at }}</h4>
     <p>{{ p.content }}</p>
 

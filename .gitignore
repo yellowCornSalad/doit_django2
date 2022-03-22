@@ -152,3 +152,4 @@ cython_debug/
 #.idea/
 migrations/
 do_it_django_prj
+*.py
