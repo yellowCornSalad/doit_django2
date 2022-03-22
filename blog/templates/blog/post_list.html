@@ -1,13 +1,10 @@
 <!DOCTYPE html>
-<!-- static에서 css파일을 불러올 것이라고 정의 -->
 {% load static %}
 <html>
 
 <head>
     <title>Blog</title>
-    <!-- css파일을 static폴더 안에 넣고 static에서 불러온다고 정의 -->
     <link rel="stylesheet" href="{% static 'blog/bootstrap/bootstrap.min.css' %}" media="screen">
-    <link href="./bootstrap4/css/bootstrap.min.css" rel="stylesheet" type="text/css">
 
     <script src="https://kit.fontawesome.com/726bbd6862.js" crossorigin="anonymous"></script>
 </head>
@@ -89,26 +86,8 @@
         <div class="row">
             <div class="col-md-8 col-lg-9">
                 <h1>Blog</h1>
-                {% for p in post_list %}
-                <!-- Blog Post -->
-                <div class="card mb-4">
-                    <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
-                    <div class="card-body">
-                        <!-- 제목이 있어야 하는 자리에 p.title로 대체 -->
-                        <h2 class="card-title">{{ p.title }}</h2>
-                        <!-- 본문이 있어야 할 자리에 p.content로 대체 -->
-                        <p class="card-text">{{ p.content }}</p>
-                        <!-- 버튼이 있는 위치의 #을 p.get_absolute_url로 대체 -->
-                        <a href="{{ p.get_absolute_url }}" class="btn btn-primary">Read More &rarr;</a>
-                    </div>
-                    <div class="card-footer text-muted">
-                        <!-- 날짜를 p.created_at으로 대체 -->
-                        Posted on {{ p.created_at }} by
-                        <a href="#">작성자명 쓸 위치</a>
-                    </div>
-                </div>
-                {% endfor %}
 
+                {% for p in post_list %}
                 <!-- Blog Post -->
                 <div class="card mb-4">
                     <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
@@ -117,14 +96,14 @@
                         <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis
                             aliquid atque, nulla? Quos cum ex quis soluta, a laboriosam. Dicta expedita corporis animi
                             vero voluptate voluptatibus possimus, veniam magni quis!</p>
-                        <a href="#" class="btn btn-primary">Read More &rarr;</a>
+                        <a href="{{ p.get_absolute_url }}" class="btn btn-primary">Read More &rarr;</a>
                     </div>
                     <div class="card-footer text-muted">
-                        Posted on January 1, 2017 by
-                        <a href="#">Start Bootstrap</a>
+                        Posted on {{ p.created_at }} by
+                        <a href="#">작성자 이름 쓸 위치</a>
                     </div>
                 </div>
-
+                {% endfor %}
                 <!-- Pagination -->
                 <ul class="pagination justify-content-center mb-4">
                     <li class="page-item">
