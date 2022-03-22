@@ -12,6 +12,7 @@
     <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Bootstrap core CSS 준호 추가함 -->
     <link rel="stylesheet" href="{% static 'blog/bootstrap/bootstrap.min.css' %}" media="screen">
+    <script src="https://kit.fontawesome.com/79f49b37c9.js" crossorigin="anonymous"></script>
     <!-- Core theme CSS (includes Bootstrap)-->
     <link rel="stylesheet" href="{% static 'blog/css/style.css' %}" media="screen">
 </head>
@@ -39,6 +40,8 @@
         <div class="row">
             <div class="col-lg-8">
                 <!-- Post content-->
+
+
                 <article>
                     <!-- Post header-->
                     <header class="mb-4">
@@ -60,9 +63,22 @@
                     </figure>
                     <!-- Post content-->
                     <section class="mb-5">
-                        <p> {{ post.content }}
+                        <p> {{ post.content }}</p>
 
-                        </p>
+                        {% if post.file_upload %}
+                        <a href="{{ post.file_upload.url }}" class="btn btn-outline-dark" role="button">
+                            Download:
+
+                            {% if post.get_file_ext == 'csv' %}
+                            <i class="fas fa-file-csv"></i>
+                            {% elif post.get_file_ext == 'xlsx' or post.get_file_ext == 'xls' %}
+                            <i class="fas fa-file-excel"></i>
+                            {% elif post.get_file_ext == 'docx' or post.get_file_ext == 'doc' %}
+                            <i class="fas fa-file-word"></i>
+                            {% else %}
+                            <i class="far fa-file"></i>
+                            {% endif %}
+                            {{ post.get_file_name }}
                     </section>
                 </article>
                 <!-- Comments section-->
