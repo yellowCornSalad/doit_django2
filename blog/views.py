@@ -1,5 +1,5 @@
 # from django.shortcuts import render
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from .models import Post
 
 # ListView를 상속받아 만든 PostList 클래스
@@ -10,6 +10,10 @@ class PostList(ListView):
     # 우선순위
     ordering = '-pk'
     # template_name = 'blog/index.html'
+
+
+class PostDetail(DetailView):
+    model = Post
 
 
 # def index(request):
