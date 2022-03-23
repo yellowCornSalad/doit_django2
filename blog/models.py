@@ -18,7 +18,8 @@ class Post(models.Model):
     #author: 추후작성
 # Create your models here.
 
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
+    # 유저가 삭제되어도 작성한 글을 남겨두고 작성자는 null값으로 남겨두기
+    author = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return f'[{self.pk}]{self.title}: : {self.author}'
