@@ -8,6 +8,16 @@
 <form method="post" enctype="multipart/form-data">{% csrf_token %}
     <table>
         {{ form }}
+        <tr>
+            <!-- Tags:라는 태그 공란 생성 -->
+            <th>
+                <label for="id_tags_str">Tags:</label>
+            </th>
+            <!-- text값을 입력 받을 수 있는 tags_str이라는 태그란 생성, 태그란의 고유명칭id는 id_tags_str이다. -->
+            <td>
+                <input type="text" name="tags_str" id="id_tags_str">
+            </td>
+        </tr>
     </table>
     <button type="submit" class="btn btn-primary float-right">Submit</button>
 </form>
