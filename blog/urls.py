@@ -4,7 +4,7 @@ from . import views
 
 urlpatterns = [
 
-    path('update_post/<int:pk>/', views.PostUpdate.as_view()),
+    path('update_post/<int:pk>/', views.PostUpdate.as_view()),  # 수정페이지 Path 지정
     path('create_post/', views.PostCreate.as_view()),
     path('tag/<str:slug>/', views.tag_page),
     path('category/<str:slug>/', views.category_page),

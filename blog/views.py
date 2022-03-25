@@ -16,7 +16,7 @@ class PostList(ListView):
     # template_name = 'blog/index.html'
 
     def get_context_data(self, **kwargs):
-        context = super(PostList, self).get_context_data()
+        context = super(PostList, self).get_context_data()  # PostDetail
         context['categories'] = Category.objects.all()
         context['no_category_post_count'] = Post.objects.filter(
             category=None).count()
@@ -35,6 +35,7 @@ def category_page(request, slug):
         request, 'blog/post_list.html',
         {
             'post_list': post_list,
+            # 'post_list': Post.objects.filter(category=category),
             'categories': Category.objects.all(),
             'no_category_post_count': Post.objects.filter(category=None).count(),
             'category': category,
@@ -136,6 +137,7 @@ class PostUpdate(LoginRequiredMixin, UpdateView):
         self.object.tags.clear()  # 수정하기 전 원래 있던 값을 지워버림
 
         tags_str = self.request.POST.get('tags_str')
+
         if tags_str:
             tags_str = tags_str.strip()
             tags_str = tags_str.replace(',', ';')

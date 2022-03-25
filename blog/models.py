@@ -22,10 +22,10 @@ class Category(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return f'/blog/category/{self.slug}'
+        return f' /blog/category/{self.slug}/'
 
     class Meta:
-        verbose_name_plural = 'Categories'
+        verbose_name_plural = 'categories'
 
 
 class Post(models.Model):
