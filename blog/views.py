@@ -1,10 +1,14 @@
 from urllib import request
+from xml.etree.ElementTree import Comment
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import get_object_or_404
 from .models import Post, Category, Tag
+from .forms import CommentForm
 from django.core.exceptions import PermissionDenied
 from django.utils.text import slugify
+
 
 # ListView를 상속받아 만든 PostList 클래스
 
@@ -51,6 +55,7 @@ class PostDetail(DetailView):
         context['categories'] = Category.objects.all()
         context['no_category_post_count'] = Post.objects.filter(
             category=None).count()
+        context['comment_form'] = CommentForm
 
         return context
 
@@ -151,6 +156,25 @@ class PostUpdate(LoginRequiredMixin, UpdateView):
                     tag.save()
                 self.object.tags.add(tag)
         return response
+
+
+def new_comment(request, pk):
+    if request.user.is_authenticated:
+        post = get_object_or_404(Post, pk=pk)
+
+        if request.method == 'POST':
+            comment_form = CommentForm(request.POST)
+            if comment_form.is_valid():
+                comment = comment_form.save(commit=False)
+                comment.post = post
+                comment.author = request.user
+                comment.save()
+                return redirect(comment.get_absolute_url())
+
+        else:
+            return redirect(post.get_absolute_url())
+    else:
+        raise PermissionDenied
     # cbv로 뷰를 만들 때 template_name을 지정해 원하는 html파일을 템플릿 파일로 설정
 
 
