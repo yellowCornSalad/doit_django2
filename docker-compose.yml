@@ -1,18 +1,33 @@
 version: '3'
 
 services:
-  web:
-    build: .
+  nginx:
+    build: ./nginx
     # command: python manage.py runserver 0.0.0.0:8000
-    command: gunicorn do_it_django_prj.wsgi:application --bind 0.0.0.0:8000
+    # command: gunicorn do_it_django_prj.wsgi:application --bind 0.0.0.0:8000
     volumes:
-    - ./:/usr/src/app
+    - static_volume:/usr/src/app/_static
+    - media_volume:/usr/src/app/_media
     ports:
-    - 8000:8000
-    env_file:
-    - ./envs/.env.dev
+    - 80:80
     depends_on:
-      - db
+      - web
+  web:
+  build: .
+  command: gunicorn do_it_django_prj.wsgi:application --bind 0.0.0.0:8000
+  volumes:
+    - static_volume:/usr/src/app/_static
+    - media_volume:/usr/src/app/_media
+    - ./:/usr/src/app/
+
+  expose:
+    - 8000
+  env_file:
+    - ./.env.prod
+  depends_on:
+    - db
+
+
 # postgres sql
   db:
     image: postgres:12.0-alpine
@@ -22,3 +37,5 @@ services:
       - ./envs/.env.db
 volumes:
   postgres_data:
+  static_volume:
+  media_volume:
